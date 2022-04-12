@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  // restApiMatriculacio:'http://172.20.68.103:5001',
+  restApiMatriculacio:'http://localhost:5001',
   production: false
 };
 
