@@ -6,6 +6,7 @@ import { PermisosComponent } from './permisos/permisos.component';
 import { IngresoComponent } from './ingreso/ingreso.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PermisosComponent,
     IngresoComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,SharedModule],
   exports: [],
 })
 export class PagesModule {}
