@@ -1,8 +1,77 @@
-<div class="login">
-    <form #loginUser="ngForm" (ngSubmit)="login(loginUser)" class="custom-form" method="post">
-        <h1>Login</h1>
-        <input type="email" name="email" placeholder="Email" [(ngModel)]="email" />
-        <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
-        <button>login</button>
-    </form>
+<!-- <div class="body">
+    <div class="login">
+        <form #loginUser="ngForm" (ngSubmit)="login(loginUser)" class="custom-form" method="post">
+            <h1>Login</h1>
+            <input type="email" name="email" placeholder="Email" [(ngModel)]="email" />
+            <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
+            <button>login</button>
+        </form>
+    </div>
+</div> -->
+<!-- <div class="body">
+
+    <div class="login">
+        <img [src]="logo" alt="" width="50%" height="80%">
+        <form #loginUser="ngForm" (ngSubmit)="login(loginUser)" class="custom-form" method="post">
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+            <mat-form-field class="ancho" appearance="fill">
+                <mat-label>Usuario</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your email</mat-label>
+                <input matInput placeholder="pat@example.com" [formControl]="email2" required>
+                <mat-error *ngIf="email2.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <br>
+            <button class="ancho" mat-raised-button mat-button color="primary">Primary</button>
+        </form>
+    </div>
+</div> -->
+<div class="body">
+    <div class="login">
+
+        <mat-card class="example-card">
+            <mat-card-header>
+
+                <!-- <img [src]="logo" alt="" > -->
+                <img class="login" src="../../../assets/config.jfif" width="20%" height="20%">
+                <br>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="example-form" [formGroup]="loginForm">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter your email</mat-label>
+                        <input matInput placeholder="Ex. Pizza" value="Sushi" formControlName="email" />
+                        <mat-error *ngIf="loginForm.get('email')?.status == 'INVALID'">{{ getErrorMessage() }}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                        <mat-error *ngIf="loginForm.get('password')?.status == 'INVALID'">{{ getErrorMessage() }}</mat-error>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+                    <br>
+                    <!--  -->
+                    <!-- <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Leave a comment</mat-label>
+                <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field> -->
+                    <button (click)="login()">Save</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

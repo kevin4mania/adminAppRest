@@ -1,1 +1,30 @@
-<p>usuario works!</p>
+<app-sidebar></app-sidebar>
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr colspan="6" style="text-align: center;"><strong>Usuarios</strong></tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Estado</th>
+                <th scope="col">permisos</th>
+                <th scope="col">esatdoCambia</th>
+                <th scope="col">ver rutas</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of usuarios; let i = index">
+            <tr>
+                <th scope="row">{{i+1}}--{{user.id}}</th>
+                <td>{{user.email}}</td>
+                <td>{{user.online}}</td>
+                <td></td>
+                <td><button (click)="cambiarEstadoUsuario(user.id,user.online)">Cambia Estado</button></td>
+                <td><button (click)="verRutasPorUsuario(user.id)">ver rutas</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+
+</div>

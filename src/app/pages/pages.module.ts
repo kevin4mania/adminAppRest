@@ -7,6 +7,11 @@ import { IngresoComponent } from './ingreso/ingreso.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +19,18 @@ import { SharedModule } from '../shared/shared.module';
     RegistrosComponent,
     PermisosComponent,
     IngresoComponent,
+    MainComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatCardModule,
+  ],
   exports: [],
 })
 export class PagesModule {}
