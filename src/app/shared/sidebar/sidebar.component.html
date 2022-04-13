@@ -1,16 +1,44 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </div>
-        </div>
+<div class="app-sidebar colored">
+    <div class="sidebar-header">
+        <a class="header-brand" routerLink="">
+            <span class="text" style="font-size: 18px; align-content: center"></span
+        >
+      </a>
+      <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
     </div>
-</nav> -->
+  
+    <div class="sidebar-content">
+      <div class="nav-container">
+        <nav id="main-menu-navigation" class="navigation-main">
+          <div class="nav-lavel">
+            <!-- <img
+              [src]="_usuarioService.consecionario.logo"
+              width="200px"
+              height="150px"
+              alt=""
+            /> -->
+          </div>
+  
+          <div
+            class="nav-item"
+            [ngClass]="{ 'has-sub': menu.submenu.length > 0 }"
+            routerLinkActive="active open"
+            *ngFor="let menu of _sidebar.menu"
+          >
+            <a *ngIf="menu.submenu.length > 0"
+              ><i [class]="menu.icono"></i><span>{{ menu.titulo }}</span></a>
+        <a *ngIf="menu.submenu.length == 0" [routerLink]="[menu.url]"><i [class]="menu.icono"></i><span>{{ menu.titulo }}</span></a
+            >
+            <div class="submenu-content" *ngFor="let submenu of menu.submenu">
+              <a
+                [routerLink]="[submenu.url]"
+                class="menu-item"
+                routerLinkActive="active"
+                >{{ submenu.titulo }}</a
+              >
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>

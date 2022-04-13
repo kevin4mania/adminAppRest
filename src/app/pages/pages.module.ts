@@ -12,9 +12,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { MainComponent } from './main/main.component';
+import { PagesComponent } from './pages.component';
+import { PAGES_ROUTES } from './pages.routes';
 
 @NgModule({
   declarations: [
+    PagesComponent,
     UsuarioComponent,
     RegistrosComponent,
     PermisosComponent,
@@ -30,7 +33,8 @@ import { MainComponent } from './main/main.component';
     MatIconModule,
     MatInputModule,
     MatCardModule,
+    PAGES_ROUTES
   ],
-  exports: [],
+  exports: []
 })
 export class PagesModule {}

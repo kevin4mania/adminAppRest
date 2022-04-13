@@ -1,5 +1,4 @@
-<app-sidebar></app-sidebar>
-<div>
+<!-- <div>
     <table class="table">
         <thead class="thead-dark">
             <tr colspan="6" style="text-align: center;"><strong>Usuarios</strong></tr>
@@ -23,8 +22,37 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->
 
-<div>
-
+<div class="card">
+    <div class="card-header">
+        <h3>Lista de Usuarios</h3>
+    </div>
+    <div class="card-body">
+        <table id="table-responsive" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Habilitar/Deshabilitar</th>
+                    <th scope="col">Permisos</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of usuarios; let i = index">
+                <tr>
+                    <td scope="row">{{user.name}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <label class="badge badge-success" *ngIf="user.online">Activo</label>
+                        <label class="badge badge-danger" *ngIf="!user.online">Inactivo</label>
+                    </td>
+                    <td><button (click)="cambiarEstadoUsuario(user.id,user.online)">Cambia Estado</button></td>
+                    <td><button (click)="verRutasPorUsuario(user.id)">ver rutas</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

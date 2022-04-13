@@ -24,6 +24,8 @@ export class UsuarioComponent implements OnInit {
   }
 
   cambiarEstadoUsuario(idUsuario: string, estado: boolean) {
+    console.log(idUsuario,estado);
+    
     this.service
       .actualizaEstadoUsuario({
         idUsuario: idUsuario,

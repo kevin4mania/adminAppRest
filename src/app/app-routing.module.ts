@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IngresoComponent } from './pages/ingreso/ingreso.component';
 import { RegistrosComponent } from './pages/registros/registros.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -11,16 +12,8 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'usuario',
-    component: UsuarioComponent,
-  },
-  {
     path: 'login',
-    component: IngresoComponent,
-  },
-  {
-    path: 'registros',
-    component: RegistrosComponent,
+    component: LoginComponent,
   },
   {
     path: '**',
@@ -28,8 +21,5 @@ const routes: Routes = [
   },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
+export const APP_ROUTES = RouterModule.forRoot(routes, { useHash: true });
+

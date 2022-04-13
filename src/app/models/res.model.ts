@@ -4,7 +4,8 @@ export interface Res {
   msg: string;
 }
 export interface Usuarios {
-  nombre: string;
+  name?: string;
+  username?: string;
   email:  string;
   online: boolean;
   id:     string;
