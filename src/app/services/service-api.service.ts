@@ -6,6 +6,7 @@ import { Usuario } from '../models/usuario.model';
 import { Res, Usuarios } from '../models/res.model';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { ResAPI } from '../models/registros.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,32 +18,30 @@ export class ServiceAPIService {
       localStorage.getItem('x-token') || ''
     ),
   };
-  constructor(private http: HttpClient,
-    private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
-  loadingCarga(value:boolean) {
+  loadingCarga(value: boolean) {
     if (value) {
-      let timerInterval!:any;
+      let timerInterval!: any;
       Swal.fire({
         icon: 'info',
         title: 'Cargando Datos',
-        text: "Por Favor espere...",
+        text: 'Por Favor espere...',
         didOpen: () => {
-          Swal.showLoading()
+          Swal.showLoading();
         },
         willClose: () => {
-          clearInterval(timerInterval)
-        }
-      })
+          clearInterval(timerInterval);
+        },
+      });
       return true;
-    }
-     else {
+    } else {
       Swal.close();
       return false;
     }
   }
 
-  alertConfirm(message:string) {
+  alertConfirm(message: string) {
     this.toastr.success(message);
   }
 
@@ -58,12 +57,29 @@ export class ServiceAPIService {
       this.header
     );
   }
-  actualizaEstadoUsuario(data:any){
-    return this.http.put(`${environment.restApiMatriculacio}/api/login/actualizaUsuario`,data,this.header);
+  actualizaEstadoUsuario(data: any) {
+    return this.http.put(
+      `${environment.restApiMatriculacio}/api/login/actualizaUsuario`,
+      data,
+      this.header
+    );
   }
-  verMetodosusuario(idusuario:string){
+  verMetodosusuario(idusuario: string) {
     return this.http.get(
       `${environment.restApiMatriculacio}/api/metodos/consultaMetodosPorUsuario/${idusuario}`,
+      this.header
+    );
+  }
+  consultaRegistros() {
+    return this.http.get<ResAPI>(
+      `${environment.restApiMatriculacio}/api/metodos/consultaRegistrosMetodos`,
+      this.header
+    );
+  }
+  actualizaEstadoRegistro(data: any) {
+    return this.http.put(
+      `${environment.restApiMatriculacio}/api/metodos/actualizarEstadoRegistroRuta`,
+      data,
       this.header
     );
   }

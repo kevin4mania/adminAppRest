@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.service.serviceLogin(this.loginForm.value).subscribe((res: any) => {
         if(res.ok && res.codError=="0001"){
           localStorage.setItem('x-token', res.token);
+          localStorage.setItem('idUser', res.usuario.id);
           this.ruta.navigate(['/usuario'])
         } else {
         this.alertErrorMessage(res.msg);

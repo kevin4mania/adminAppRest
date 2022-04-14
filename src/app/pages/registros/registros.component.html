@@ -13,40 +13,39 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Usuario</th>
-                                        <th scope="col">Email</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th scope="col">Observacion</th>
+                                        <th scope="col">URL</th>
                                         <th scope="col">Estado</th>
-
-                                        <th scope="col">Permisos</th>
+                                        <th scope="col">Accion</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let user of usuarios; let i = index">
+                                <tbody *ngFor="let registro of registros; let i = index">
                                     <tr>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.username}}</td>
-                                        <td>{{user.email}}</td>
+                                        <td>{{registro.name}}</td>
+                                        <td>{{registro.description}}</td>
+                                        <td>{{registro.observation}}</td>
+                                        <td>{{registro.URL}}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <div style="width:10px;height:10px;border-radius:50%;" [class]="user.online?'badge-success':'badge-danger'"></div>
+                                                    <div style="width:10px;height:10px;border-radius:50%;" [class]="registro.online?'badge-success':'badge-danger'"></div>
                                                     <!-- <label class="badge badge-success" *ngIf="user.online">Activo</label>
                                                     <label class="badge badge-danger" *ngIf="!user.online">Inactivo</label> -->
-                                                </div>
-                                                <div class="col-sm-2 text-right">
-                                                    <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(user.id,user.online)" data-toggle="modal" title="Cambiar Estado">
-                                                        <i class="ik ik-x text-danger" *ngIf="user.online"></i>
-                                                        <i class="ik ik-check text-success" *ngIf="!user.online"></i>
-                                                    </span>
-
                                                 </div>
                                             </div>
 
 
                                         </td>
                                         <td class="text-center">
-                                            <span style="cursor: pointer; text-decoration: solid;" (click)="verRutasPorUsuario(user.id)" data-toggle="modal" title="Permisos">
-                                                <i class="ik ik-search text-primary"></i>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-sm-2 text-right">
+                                                    <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(registro._id,registro.online)" data-toggle="modal" title="Cambiar Estado">
+                                                    <i class="ik ik-x text-danger" *ngIf="registro.online"></i>
+                                                    <i class="ik ik-check text-success" *ngIf="!registro.online"></i>
+                                                </span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
