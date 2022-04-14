@@ -1,1 +1,57 @@
-<p>permisos works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Rutas Asignadas</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 text-right">
+                        <button type="button" class="btn btn-primary">
+                            <i class="ik ik-user-plus"></i> Asignar Rutas</button>
+                    </div>
+                    <div class="col-sm-12 col-lg-12 mt-3">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Desripcion</th>
+                                        <th scope="col">URL</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let user of rutasAsignadas; let i = index">
+                                    <tr>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.description}}</td>
+                                        <td>{{user.URL}}</td>
+                                        <td>
+                                            <span style="cursor: pointer; text-decoration: solid;" data-toggle="modal" title="Permisos">
+                                                <i class="ik ik-trash text-primary"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item disabled">
+                                        <a class="page-link">Anterior</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

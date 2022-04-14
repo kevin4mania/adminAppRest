@@ -42,6 +42,15 @@ export class ServiceAPIService {
     }
   }
 
+  alertErrorMessage(mensaje:any){
+    Swal.fire({
+      title: 'Error!',
+      text: mensaje,
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    })
+   }
+
   alertConfirm(message:string) {
     this.toastr.success(message);
   }
@@ -66,5 +75,9 @@ export class ServiceAPIService {
       `${environment.restApiMatriculacio}/api/metodos/consultaMetodosPorUsuario/${idusuario}`,
       this.header
     );
+  }
+  crearUsuario(usuarioForm:any){
+    return this.http.post(
+      `${environment.restApiMatriculacio}/api/login/new`, usuarioForm,this.header);
   }
 }

@@ -2,6 +2,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { PagesComponent } from "./pages.component";
 import { UsuarioComponent } from './usuario/usuario.component';
+import { PermisosComponent } from './permisos/permisos.component';
 
 const pagesRoutes: Routes = [
   {
@@ -12,8 +13,17 @@ const pagesRoutes: Routes = [
         path: "usuario",
         component: UsuarioComponent,
         data: {
-          titulo: "Mi Perfil",
-          descripcion: "Personaliza tus datos",
+          titulo: "Usuario",
+          descripcion: "Lista de usuarios registrados",
+          icon: "ik ik-user",
+        },
+      },
+      {
+        path: "usuario/rutas-asignadas/:id",
+        component: PermisosComponent,
+        data: {
+          titulo: "Rutas Asignadas",
+          descripcion: "Lista de rutas asignadas",
           icon: "ik ik-user",
         },
       },
