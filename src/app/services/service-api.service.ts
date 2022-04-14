@@ -41,6 +41,15 @@ export class ServiceAPIService {
     }
   }
 
+  alertErrorMessage(mensaje: any) {
+    Swal.fire({
+      title: 'Error!',
+      text: mensaje,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+    });
+  }
+
   alertConfirm(message: string) {
     this.toastr.success(message);
   }
@@ -80,6 +89,20 @@ export class ServiceAPIService {
     return this.http.put(
       `${environment.restApiMatriculacio}/api/metodos/actualizarEstadoRegistroRuta`,
       data,
+      this.header
+    );
+  }
+  crearUsuario(usuarioForm: any) {
+    return this.http.post(
+      `${environment.restApiMatriculacio}/api/login/new`,
+      usuarioForm,
+      this.header
+    );
+  }
+  crearRegistro(registroForm: any) {
+    return this.http.post(
+      `${environment.restApiMatriculacio}/api/metodos/ingresaNuevoMetodo`,
+      registroForm,
       this.header
     );
   }

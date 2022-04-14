@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServiceAPIService } from 'src/app/services/service-api.service';
 import { Usuarios } from '../../models/res.model';
 import Swal from 'sweetalert2';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+// This lets me use jquery
+declare var $: any;
 
 @Component({
   selector: 'app-usuario',
@@ -9,10 +14,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuario.component.sass'],
 })
 export class UsuarioComponent implements OnInit {
+
   usuarios!: Usuarios[];
+  userForm!: FormGroup;
   constructor(private service: ServiceAPIService) {}
 
   ngOnInit(): void {
+    this.crearFormulario();
     this.consultausuarios();
   }
   consultausuarios() {
@@ -22,6 +30,8 @@ export class UsuarioComponent implements OnInit {
       //  this.service.loadingCarga(false);
         this.usuarios = res.usuarios;
         this.service.loadingCarga(false);
+      } else {
+        this.alertErrorMessage(res.msg)
       }
     });
   }
@@ -81,7 +91,66 @@ export class UsuarioComponent implements OnInit {
       icon: 'error',
       confirmButtonText: 'Aceptar'
     })
+  }
+  
+  crearFormulario() {
+    this.userForm = new FormGroup({
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required)
+    });
+  }
+  crearUsuario() {
+    $("#modalUserCreate").modal("show");
    }
+   alerta() {
+    
+    if (this.userForm.invalid) {
+      return;
+    }
+    Swal.fire({
+      title: 'Guardar registro.',
+      text: '¿Está seguro de guardar el registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, guardar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveUsuario();
+      }
+    })
+  }
+
+  saveUsuario() {
+    if (this.userForm.invalid) {
+      return
+    }
+    this.service.loadingCarga(true);
+    this.service.crearUsuario(this.userForm.value).subscribe((resp: any) => {
+      if (resp.codError == '0001') {
+        
+        $("#modalUserCreate").modal("toggle")
+        
+        this.userForm.reset()
+        this.service.loadingCarga(false);
+        Swal.fire(
+          'Crear Usuario',
+          'Usuario creado!',
+          'success'
+        )
+        this.consultausuarios();
+      } else {
+        this.service.loadingCarga(false);
+        Swal.fire(
+          resp.msg,
+          'Intentar de nuevo.',
+          'warning'
+        );
+      }
+    });
+  }
 
 
 }
