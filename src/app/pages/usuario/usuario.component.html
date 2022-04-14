@@ -16,8 +16,7 @@
                                         <th scope="col">Usuario</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Estado</th>
-
-                                        <th scope="col">Permisos</th>
+                                        <th scope="col">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let user of usuarios; let i = index">
@@ -25,29 +24,19 @@
                                         <td>{{user.name}}</td>
                                         <td>{{user.username}}</td>
                                         <td>{{user.email}}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div style="width:10px;height:10px;border-radius:50%;" [class]="user.online?'badge-success':'badge-danger'"></div>
-                                                    <!-- <label class="badge badge-success" *ngIf="user.online">Activo</label>
-                                                    <label class="badge badge-danger" *ngIf="!user.online">Inactivo</label> -->
-                                                </div>
-                                                <div class="col-sm-2 text-right">
-                                                    <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(user.id,user.online)" data-toggle="modal" title="Cambiar Estado">
-                                                        <i class="ik ik-x text-danger" *ngIf="user.online"></i>
-                                                        <i class="ik ik-check text-success" *ngIf="!user.online"></i>
-                                                    </span>
-
-                                                </div>
-                                            </div>
-
-
-                                        </td>
                                         <td class="text-center">
+                                            <div style="width:10px;height:10px;border-radius:50%;" [class]="user.online?'badge-success':'badge-danger'"></div>
+                                        </td>
+                                        <td>
+                                            <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(user.id,user.online)" data-toggle="modal" title="Cambiar Estado">
+                                                <i class="ik ik-x text-danger mr-2" *ngIf="user.online"></i>
+                                                <i class="ik ik-check text-success mr-2" *ngIf="!user.online"></i>
+                                            </span>
                                             <span style="cursor: pointer; text-decoration: solid;" (click)="verRutasPorUsuario(user.id)" data-toggle="modal" title="Permisos">
                                                 <i class="ik ik-search text-primary"></i>
                                             </span>
                                         </td>
+
                                     </tr>
                                 </tbody>
                             </table>
