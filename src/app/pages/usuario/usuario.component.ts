@@ -17,6 +17,7 @@ export class UsuarioComponent implements OnInit {
 
   usuarios!: Usuarios[];
   userForm!: FormGroup;
+  loading: boolean = true;
   constructor(private service: ServiceAPIService) {}
 
   ngOnInit(): void {
@@ -24,11 +25,11 @@ export class UsuarioComponent implements OnInit {
     this.consultausuarios();
   }
   consultausuarios() {
-    //this.service.loadingCarga(true);
+    this.service.loadingCarga(true);
     this.service.consultaUsuarios().subscribe((res: any) => {
       if (res.ok && res.codError == '0001') {
-      //  this.service.loadingCarga(false);
         this.usuarios = res.usuarios;
+        this.loading = false;
         this.service.loadingCarga(false);
       } else {
         this.alertErrorMessage(res.msg)
@@ -44,15 +45,9 @@ export class UsuarioComponent implements OnInit {
         online: !estado,
       }).subscribe((res: any) => {
         if(res.ok && res.codError == '0001'){
+          this.service.alertConfirm('Usuario actualizado!');
           this.service.loadingCarga(false);
-          Swal.fire(
-            'Actualizar Usuario',
-            'El usuario ha sido ' + estadoUsuario,
-            'success'
-          )
-          
           this.consultausuarios();
-         
         } else {
           this.service.loadingCarga(false);
           this.alertErrorMessage(res.msg)
@@ -135,11 +130,7 @@ export class UsuarioComponent implements OnInit {
         
         this.userForm.reset()
         this.service.loadingCarga(false);
-        Swal.fire(
-          'Crear Usuario',
-          'Usuario creado!',
-          'success'
-        )
+        this.service.alertConfirm('Usuario guardado!');
         this.consultausuarios();
       } else {
         this.service.loadingCarga(false);

@@ -13,7 +13,7 @@ declare var $: any;
 export class RegistrosComponent implements OnInit {
   registros!: RegistroMetodosBDD[];
   usuarioLogeado:string=localStorage.getItem('idUser')||'';
-
+  loading:boolean=true;
   registroForm!: FormGroup;
 
   constructor(private service: ServiceAPIService) { }
@@ -25,6 +25,7 @@ export class RegistrosComponent implements OnInit {
   consultaRegistros(){
     this.service.consultaRegistros().subscribe((res:ResAPI)=>{
       if(res.ok && res.codError=='0001'){
+        this.loading = false;
         this.registros=res.registroMetodosBDD;
       }
     })
@@ -37,6 +38,7 @@ export class RegistrosComponent implements OnInit {
         online: !estado,
       }).subscribe((res: any) => {
         if(res.ok && res.codError == '0001'){
+          
           this.service.loadingCarga(false);
           Swal.fire(
             'Actualizar Registro',

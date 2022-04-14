@@ -106,4 +106,20 @@ export class ServiceAPIService {
       this.header
     );
   }
+  quitarPermisoUsuarioRuta(data:any){
+    return this.http.put(`${environment.restApiMatriculacio}/api/metodos/actualizaMetodo`,data,this.header);
+  }
+  consultarRutasNoAsignadas(idUsuario:string) {
+    return this.http.get(
+      `${environment.restApiMatriculacio}/api/metodos/consultaMetodosNoAccesoPorUsuario/${idUsuario}`,
+      this.header
+    );
+  }
+  asignarRutasUsuario(rutasAsignar: any) {
+    return this.http.post(
+      `${environment.restApiMatriculacio}/api/metodos/darPermisoAccesoMetodos`,
+      rutasAsignar,
+      this.header
+    );
+  }
 }

@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-header">
+                <h3>Usuarios Registrados</h3>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12 text-right">
@@ -8,53 +11,70 @@
                             <i class="ik ik-user-plus"></i> Agregar Usuario</button>
                     </div>
                     <div class="col-sm-12 col-lg-12 mt-3">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Usuario</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let user of usuarios; let i = index">
-                                    <tr>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.username}}</td>
-                                        <td>{{user.email}}</td>
-                                        <td class="text-center">
-                                            <div style="width:10px;height:10px;border-radius:50%;" [class]="user.online?'badge-success':'badge-danger'"></div>
-                                        </td>
-                                        <td>
-                                            <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(user.id,user.online)" data-toggle="modal" title="Cambiar Estado">
-                                                <i class="ik ik-x text-danger mr-2" *ngIf="user.online"></i>
-                                                <i class="ik ik-check text-success mr-2" *ngIf="!user.online"></i>
-                                            </span>
-                                            <!-- <span style="cursor: pointer; text-decoration: solid;" (click)="crearUsuario()" data-toggle="modal" title="Permisos">
-                                                <i class="ik ik-search text-primary"></i>
-                                            </span> -->
-                                            <a [routerLink]="['./rutas-asignadas/' + user.id]" title="Ver Permisos"><i
-                                                class="ik ik-search text-primary"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Anterior</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Siguiente</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        <p-table #dt [value]="usuarios" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" responsiveLayout="scroll" [paginator]="true" currentPageReportTemplate="Registros {first} - {last} de {totalRecords}"
+                            [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Nombre
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Usuario
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Correo
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Estado
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Acción
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-user>
+                                <tr class="p-selectable-row">
+                                    <td>
+                                        <span class="p-column-title">Nombre</span> {{user.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Usuario</span> {{user.description}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Correo</span> {{user.email}}
+                                    </td>
+                                    <td style="text-align: center;" class="text-center">
+                                        <span class="p-column-title">Estado</span>
+                                        <div style="width:10px;height:10px;border-radius:50%;" [class]="user.online?'badge-success':'badge-danger'"></div>
+
+                                    </td>
+                                    <td>
+                                        <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(user.id,user.online)" data-toggle="modal" title="Cambiar Estado">
+                                            <i class="ik ik-x text-danger mr-2" *ngIf="user.online"></i>
+                                            <i class="ik ik-check text-success mr-2" *ngIf="!user.online"></i>
+                                        </span>
+                                        <a [routerLink]="['./rutas-asignadas/' + user.id]" title="Ver Permisos"><i
+                                            class="ik ik-search text-primary"></i></a>
+
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">Registros no encontrados!</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
 
@@ -62,6 +82,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="modalUserCreate" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">

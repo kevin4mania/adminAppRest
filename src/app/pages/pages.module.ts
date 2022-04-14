@@ -14,6 +14,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MainComponent } from './main/main.component';
 import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './pages.routes';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PAGES_ROUTES } from './pages.routes';
     MatIconModule,
     MatInputModule,
     MatCardModule,
-    PAGES_ROUTES
+    PAGES_ROUTES,
+    TableModule
   ],
   exports: []
 })

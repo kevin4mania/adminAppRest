@@ -15,7 +15,7 @@ export class SidebarService {
     },*/
     {
       titulo: 'Usuarios',
-      icono: 'ik ik-file-text',
+      icono: 'ik ik-user',
       url: '/tramites',
       submenu:[]
     },
@@ -23,19 +23,6 @@ export class SidebarService {
       titulo: 'Rutas',
       icono: 'ik ik-file-text',
       url: '/rutas',
-      submenu:[]
-    },
-
-    /*{
-      titulo: 'Reportes',
-      icono: 'ik ik-bar-chart-line',
-      url: '#',
-      submenu:[]
-    },*/
-    {
-      titulo: 'Mi Perfil',
-      icono: 'ik ik-user',
-      url: '/perfil',
       submenu:[]
     }
   ];

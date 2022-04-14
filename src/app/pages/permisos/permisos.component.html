@@ -7,50 +7,141 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12 text-right">
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" (click)="asignarRutas()">
                             <i class="ik ik-user-plus"></i> Asignar Rutas</button>
                     </div>
                     <div class="col-sm-12 col-lg-12 mt-3">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Desripcion</th>
-                                        <th scope="col">URL</th>
-                                        <th scope="col">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let user of rutasAsignadas; let i = index">
-                                    <tr>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.description}}</td>
-                                        <td>{{user.URL}}</td>
-                                        <td>
-                                            <span style="cursor: pointer; text-decoration: solid;" data-toggle="modal" title="Permisos">
-                                                <i class="ik ik-trash text-primary"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Anterior</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Siguiente</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        <p-table #dt [value]="rutasAsignadas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" responsiveLayout="scroll" [paginator]="true" currentPageReportTemplate="Registros {first} - {last} de {totalRecords}"
+                            [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Nombre
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Descripción
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            URL
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Estado
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Acción
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-ruta>
+                                <tr class="p-selectable-row">
+                                    <td>
+                                        <span class="p-column-title">Nombre</span> {{ruta.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Descripción</span> {{ruta.description}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">URL</span> {{ruta.URL}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Estado</span>
+                                        <div style="width:10px;height:10px;border-radius:50%;" [class]="ruta.online?'badge-success':'badge-danger'"></div>
+
+                                    </td>
+                                    <td>
+                                        <span style="cursor: pointer; text-decoration: solid;" data-toggle="modal" (click)="alertaCambiarEstadoPermiso(ruta.id, ruta.online)" [title]="!ruta.online?'Otorgar Permiso':'Quitar Permiso'">
+                                        <i [class]="!ruta.online?'ik ik-repeat text-success':'ik ik-repeat text-danger'"></i>
+                                    </span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">Registros no encontrados!</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAsignar" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="demoModalLabel">Rutas no Asignadas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12 text-right">
+                    <button type="button" class="btn btn-primary" (click)="asignar()" [disabled]="!(selectedRutas.length> 0)">
+                        <i class="ik ik-plus"></i> Asignar</button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 mt-3">
+                        <p-table #dt [value]="rutasNoAsignadas" [(selection)]="selectedRutas" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" responsiveLayout="scroll"
+                            [paginator]="true" currentPageReportTemplate="Registros {first} - {last} de {totalRecords}" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 3rem">
+                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    </th>
+                                    <th pSortableColumn="name">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Nombre
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Descripción
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            URL
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-ruta>
+                                <tr class="p-selectable-row">
+                                    <td>
+                                        <p-tableCheckbox [value]="ruta"></p-tableCheckbox>
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Nombre</span> {{ruta.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Descripción</span> {{ruta.description}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">URL</span> {{ruta.URL}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">Registros no encontrados!</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

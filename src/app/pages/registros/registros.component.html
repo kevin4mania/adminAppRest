@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-header">
+                <h3>Lista de Rutas</h3>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12 text-right">
@@ -8,49 +11,74 @@
                             <i class="ik ik-user-plus"></i> Agregar Nueva Ruta</button>
                     </div>
                     <div class="col-sm-12 col-lg-12 mt-3">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Observacion</th>
-                                        <th scope="col">URL</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Accion</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let registro of registros; let i = index">
-                                    <tr>
-                                        <td>{{registro.name}}</td>
-                                        <td>{{registro.description}}</td>
-                                        <td>{{registro.observation}}</td>
-                                        <td>{{registro.URL}}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div style="width:10px;height:10px;border-radius:50%;" [class]="registro.online?'badge-success':'badge-danger'"></div>
-                                                    <!-- <label class="badge badge-success" *ngIf="user.online">Activo</label>
-                                                    <label class="badge badge-danger" *ngIf="!user.online">Inactivo</label> -->
-                                                </div>
-                                            </div>
-
-
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="row">
-                                                <div class="col-sm-2 text-right">
-                                                    <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(registro._id,registro.online)" data-toggle="modal" title="Cambiar Estado">
-                                                    <i class="ik ik-x text-danger" *ngIf="registro.online"></i>
-                                                    <i class="ik ik-check text-success" *ngIf="!registro.online"></i>
-                                                </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <p-table #dt [value]="registros" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" responsiveLayout="scroll" [paginator]="true" currentPageReportTemplate="Registros {first} - {last} de {totalRecords}"
+                            [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Nombre
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Descripción
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Observación
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            URL
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Estado
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Acción
+                                        </div>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-registro>
+                                <tr class="p-selectable-row">
+                                    <td>
+                                        <span class="p-column-title">Nombre</span> {{registro.name}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Descripción</span> {{registro.description}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Observación</span> {{registro.observation}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">URL</span> {{registro.URL}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Estado</span>
+                                        <div style="width:10px;height:10px;border-radius:50%;" [class]="registro.online?'badge-success':'badge-danger'"></div>
+                                    </td>
+                                    <td>
+                                        <span style="cursor: pointer; text-decoration: solid;" (click)="alertaCambiarEstado(registro._id,registro.online)" data-toggle="modal" title="Cambiar Estado">
+                                            <i class="ik ik-x text-danger" *ngIf="registro.online"></i>
+                                            <i class="ik ik-check text-success" *ngIf="!registro.online"></i>
+                                    </span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">Registros no encontrados!</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
 
@@ -58,6 +86,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- MODAL CREAR REGISTROS -->
 <div class="modal fade" id="modalrRegistroCreate" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
