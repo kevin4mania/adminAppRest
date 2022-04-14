@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { PagesComponent } from "./pages.component";
+import { RegistrosComponent } from "./registros/registros.component";
 import { UsuarioComponent } from './usuario/usuario.component';
 
 const pagesRoutes: Routes = [
@@ -17,6 +18,16 @@ const pagesRoutes: Routes = [
           icon: "ik ik-user",
         },
       },
+      {
+        path: "rutas",
+        component: RegistrosComponent,
+        data: {
+          titulo: "Mi Perfil",
+          descripcion: "Personaliza tus datos",
+          icon: "ik ik-user",
+        },
+      },
+
       { path: "", redirectTo: "/usuario", pathMatch: "full" },
     ],
   },

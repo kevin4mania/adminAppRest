@@ -22,7 +22,7 @@ export class SidebarService {
     {
       titulo: 'Rutas',
       icono: 'ik ik-file-text',
-      url: '/matriculacion',
+      url: '/rutas',
       submenu:[]
     },
 
